@@ -1,0 +1,179 @@
+package Home1;
+
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+class WrongInException extends Exception{
+	public WrongInException(String end) {
+		super(end);
+	}
+	public String toString() {
+		return "wrong input";
+	}
+}
+class marks extends JFrame implements ActionListener {
+	
+	JFrame f;
+	Container contentpane;
+	JPanel panel, p2, p3, p4, p5;
+	JTextField t1, t2, t3, t4, t5;
+	JButton b;
+	JLabel l1, l2, l3, l4, l5, l6, l7, l8,l9;
+	private int sum, sum1;
+	private char grade;
+
+	public marks(String title) {
+		super(title);
+
+		t1 = new JTextField();
+		t2 = new JTextField();
+		t3 = new JTextField();
+		t4 = new JTextField();
+		t5 = new JTextField();
+
+		b = new JButton("Calculate");
+		l1 = new JLabel("     Enter IA-1 Marks:   ");
+		l2 = new JLabel("     Enter IA-2 Marks:   ");
+		l3 = new JLabel("     Enter IA-3 Marks:   ");
+		l4 = new JLabel("     Enter CTA Marks:     ");
+		l5 = new JLabel("     Enter SEE Marks:");
+		l6 = new JLabel(" Grade Calculator");
+		l7 = new JLabel("     Total Marks-");
+		l8 = new JLabel("  Grade-       ");
+		l9 = new JLabel("     ");
+		panel = new JPanel();
+		panel.setBounds(5, 8, 70, 50);
+		p2 = new JPanel();
+		b.addActionListener(this);
+		p3 = new JPanel();
+		p4 = new JPanel();
+		p5 = new JPanel();
+		b.setBackground(Color.WHITE);
+
+		panel.add(l1);
+		panel.add(l2);
+		panel.add(l3);
+		panel.add(l4);
+		panel.add(l5);
+
+		p2.add(t1);
+		p2.add(t2);
+		p2.add(t5);
+		p2.add(t3);
+		p2.add(t4);
+		p3.add(b);
+		p4.add(l9);
+		panel.add(l7);
+		p2.add(l8);
+		p5.add(l6);
+		panel.setLayout(new GridLayout(6, 3, 30, 30));
+		p2.setLayout(new GridLayout(6, 3, 30, 30));
+
+		p5.setBorder(new LineBorder(Color.WHITE));
+		p5.setBackground(Color.WHITE);
+
+		contentpane = this.getContentPane();
+		contentpane.add(p4, BorderLayout.EAST);
+		contentpane.add(panel, BorderLayout.WEST);
+		contentpane.add(p5, BorderLayout.NORTH);
+		contentpane.add(p2, BorderLayout.CENTER);
+		contentpane.add(p3, BorderLayout.SOUTH);
+
+	}
+
+	public void actionPerformed(ActionEvent ae) {
+		
+			
+		
+		int ia1 = Integer.parseInt(t1.getText());
+		try {
+			if(ia1<0 || ia1>20)
+				throw new WrongInException("marks ou of range");
+		}catch(WrongInException wi) {
+			JOptionPane.showMessageDialog(null, "Ia1 marks out of range","Marks out of range",JOptionPane.ERROR_MESSAGE);
+		}
+		int ia2 = Integer.parseInt(t2.getText());
+		try {
+			if(ia2<0 || ia2>20)
+				throw new WrongInException("marks ou of range");
+		}catch(WrongInException wi) {
+			JOptionPane.showMessageDialog(null, "Ia2 marks out of range","Marks out of range",JOptionPane.ERROR_MESSAGE);
+		}
+		int ia3 = Integer.parseInt(t3.getText());
+		try {
+			if(ia3<0 || ia3>20)
+				throw new WrongInException("marks ou of range");
+		}catch(WrongInException wi) {
+			JOptionPane.showMessageDialog(null, "Ia3 marks out of range","Marks out of range",JOptionPane.ERROR_MESSAGE);
+		}
+		int CTA = Integer.parseInt(t4.getText());
+		try {
+			if(CTA<0 || CTA>10)
+				throw new WrongInException("marks ou of range");
+		}catch(WrongInException wi) {
+			JOptionPane.showMessageDialog(null, "CTA marks out of range","Marks out of range",JOptionPane.ERROR_MESSAGE);
+		}
+		int see = Integer.parseInt(t5.getText());
+		try {
+			if(see<0 || see>100)
+				throw new WrongInException("marks ou of range");
+		}catch(WrongInException wi) {
+			JOptionPane.showMessageDialog(null, "SEE marks out of range","Marks out of range",JOptionPane.ERROR_MESSAGE);
+		}
+//		int sum() {	
+			if(ia1>ia3 && ia2>ia3)
+				sum=CTA+ia1+ia2;
+			else if(ia3>ia2 && ia1>ia2)
+				sum=CTA+ia3+ia1;
+			else if(ia1<0 || ia1>20 || ia2<0 || ia2>20 || ia3<0 || ia3>20 || CTA<0 || CTA>10 || see<0 || see>100 )
+				sum=0;
+			else
+				sum=CTA+ia3+ia2;
+
+			see=see/2;
+			if(see%1>=0.5) {
+				see=see+1;
+			}
+			sum1=see+sum;
+//			return sum1;
+
+//		}
+//		char grade(){
+//			int sum=sum1();
+			if(sum>=90)
+				grade='S';
+			else if(sum>=80 && sum<=89)
+				grade='A';
+			else if(sum>=70 && sum1<=79)
+				grade='B';
+			else if(sum1>=60 && sum1<=69)
+				grade='C';
+			else if(sum1>=50 && sum1<=59)
+				grade='D';
+			else if(sum1>=40 && sum1<=49)
+				grade='E';
+			else if(ia1<0 || ia1>20 || ia2<0 || ia2>20 || ia3<0 || ia3>20 || CTA<0 || CTA>10 || see<0 || see>100)
+				grade=' ';
+			else
+				grade='F';
+//		}
+
+		l7.setText("     Total Marks:" + sum1);
+		l8.setText(" Grade:" + grade);
+	}
+}
+
+public class ProjectOne {
+	public static void main(String[] args) {
+
+		JFrame f = new marks("Students Grading System");
+		f.setBounds(600, 120, 600, 450);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setVisible(true);
+		f.setSize(500, 500);
+	}
+}
